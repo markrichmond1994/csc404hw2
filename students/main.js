@@ -1,6 +1,6 @@
 "use strict";
 
-//instructions. Type following into visual studio code terminal...
+//instructions. Type following into visual studio code terminal... (make sure you have node.js installed https://nodejs.org/en/download/)
 //cd students
 //npm init --yes
 //npm install -S
