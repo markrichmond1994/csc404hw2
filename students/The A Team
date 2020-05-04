@@ -1,0 +1,29 @@
+Leader: Stephen Hess
+Dev 1: Cody Kiedaiseh
+Dev 2:Zack Colangelo 
+Tester: Jose Rodriguez
+Tester 2:  Mark Richmond
+
+Sub System: 
+Home Tab: Displays information on how the program works. Static Page Function name – HomePage
+Grade Input Tab: 3 Functions: First to get grades named getGrades. Second functions calculates GPA named outputGPA. Third function named addToArray takes data from outputGPA, and puts in array that can be accessed by the third tab.
+
+Qualified Students Tab: Displays list of Qualified Students: Takes input of GPA threshold, outputs list of students that meet the threshold requirements.
+
+
+Testing: 
+Test cases will be evaluated fully later, but as a base test case:
+Create test cases as needed for home tab, grade input tab, and qualitifed students tab:
+Home Tab: Is everything Displayed?
+Grade Input Tab: Can everything be inputted, various characters etc, Does the GPA Calculate function work correctly, does it correctly put info into array
+
+Qualified, Does it display the range is should? 
+
+Timeline:
+By 2/20 we will have tab functions coded, and testing will begin.
+By the 2/28 has revealed bugs, and most have been fixed. A week remains for various testing / unforeseen consequences. 
+
+
+
+
+
