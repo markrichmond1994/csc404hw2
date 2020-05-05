@@ -23,31 +23,25 @@ httpStatus = require("http-status-codes"),
 describe('Check that the webserver is running and reachable', function() {
 	//Test input will take place in main.js
 	
-	it('Main page is up and reachable', function(){
-
-		request('http://localhost:3000' , function (error, response, body) {
-		if (!error){
-			assert.expect(response.statusCode,httpStatus.OK,"Error. Status code not OK"); //This is still broken and I don't know why.
-		}
-		});		
+	it('Main page is up and reachable', function(done){
+		request.get('http://localhost:3000/', function(err, res, body) {
+			expect(res.statusCode).to.equal(200);
+			done();
+	}); 	
 	});
 
 
-	it('Grades page is up and reachable', function(){
-
-		request('http://localhost:3000/contact.html' , function (error, response, body) {
-		if (!error){
-			assert.expect(response.statusCode,httpStatus.OK,"Error. Status code not OK"); //This is still broken and I don't know why.
-		}
+	it('Grades page is up and reachable', function(done){
+		request.get('http://localhost:3000/contact.html', function(err, res, body) {
+			expect(res.statusCode).to.equal(200);
+			done();
 		});		
 	});
 
-	it('Courses page is up and reachable', function(){
-
-		request('http://localhost:3000/courses.html' , function (error, response, body) {
-		if (!error){
-			assert.expect(response.statusCode,httpStatus.OK,"Error. Status code not OK"); //This is still broken and I don't know why.
-		}
+	it('Courses page is up and reachable', function(done){
+		request.get('http://localhost:3000/courses.html', function(err, res, body) {
+			expect(res.statusCode).to.equal(200);
+			done();		
 		});		
 	});
 
