@@ -1,13 +1,59 @@
 //This is the testing branch
+//npm install mocha -g
+//npm install mocha chai --save-dev
 
+var mocha = require('mocha')
+var describe = mocha.describe
+var it = mocha.it
+var assert = require('chai').assert
+var expect  = require('chai').expect;
+var request = require('request'); 
 
-var main = require('./main')
-var HomePage = require('./HomePage')
-var GradeInput = require('./GradeInput ')
-var QualifiedStudents = require('QualifiedStudents')
+http = require("http"),
+httpStatus = require("http-status-codes"),
+
+//var main = require('../main');
+//var HomePage = require('../HomePage');
+//var GradeInput = require('../GradeInput ');
+//var QualifiedStudents = require('../QualifiedStudents');
 
 
 //these tests are incomplete, just a framework right now. Need the associated functions
+
+describe('Check that the webserver is running and reachable', function() {
+	//Test input will take place in main.js
+	
+	it('Main page is up and reachable', function(){
+
+		request('http://localhost:3000' , function (error, response, body) {
+		if (!error){
+			assert.expect(response.statusCode,httpStatus.OK,"Error. Status code not OK"); //This is still broken and I don't know why.
+		}
+		});		
+	});
+
+
+	it('Grades page is up and reachable', function(){
+
+		request('http://localhost:3000/contact.html' , function (error, response, body) {
+		if (!error){
+			assert.expect(response.statusCode,httpStatus.OK,"Error. Status code not OK"); //This is still broken and I don't know why.
+		}
+		});		
+	});
+
+	it('Courses page is up and reachable', function(){
+
+		request('http://localhost:3000/courses.html' , function (error, response, body) {
+		if (!error){
+			assert.expect(response.statusCode,httpStatus.OK,"Error. Status code not OK"); //This is still broken and I don't know why.
+		}
+		});		
+	});
+
+	
+});
+
 
 
 describe('Test that name into database is correct', function() {
@@ -61,3 +107,4 @@ describe('Test that output name is within bounds', function() {
 		assert.match(GradeInput.outputName(), "^[a-zA-Z]+", 'Returned name is valid');
 	});
 });
+
