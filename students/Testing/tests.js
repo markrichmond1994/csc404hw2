@@ -48,8 +48,22 @@ describe('Check that the webserver is running and reachable', function() {
 	
 });
 
+describe('Check that database is reachable', function() {
+    //Test input will take place in main.js
 
-
+	it('Checking that database is reachable', function(){
+        MongoDB.connect(dbURL, (error, client) => {
+            if (error) throw error;
+            let db = client.db(dbName);
+            db.collection("Students")
+              .find()
+              .toArray((error, data) => {
+                if (error) throw error;
+                console.log(data);
+              });
+	});
+    });
+});
 describe('Test that name into database is correct', function() {
     //Test input will take place in main.js
 
