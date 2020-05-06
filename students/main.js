@@ -5,7 +5,13 @@
 //npm init --yes
 //npm install -S
 //node main.js
+//npm install --save node-html-parser
 //use http://localhost:3000 to view website in your web browser
+
+
+const getJSONString = obj => {
+  return JSON.stringify(obj, null, 2);
+};
 
 const port = 3000,
   http = require("http"),
@@ -22,17 +28,31 @@ router.get("/", (req, res) => {
 router.get("/courses.html", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.html);
   utils.getFile("views/courses.html", res);
+  
 });
 
-router.get("/contact.html", (req, res) => {
+router.get("/gradeInput.html", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.html);
-  utils.getFile("views/contact.html", res);
+  utils.getFile("views/gradeInput.html", res);
 });
 
-router.post("/", (req, res) => {
+router.post("/gradeInput.html", (req, res) => {
+  //console.log(getJSONString(req.headers));
+  var body = [];
+  req.on("data",(bodyData => {
+    body.push(bodyData);
+  }));
+  req.on("end", () => {
+    body = Buffer.concat(body).toString();
+    console.log(`${body}`)
+  })
+  
+  
   res.writeHead(httpStatus.OK, contentTypes.html);
   utils.getFile("views/thanks.html", res);
 });
+
+
 
 router.get("/graph.png", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.png);
@@ -73,6 +93,8 @@ router.get("/confetti_cuisine.js", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.js);
   utils.getFile("public/js/QualifiedStudents.js", res);
 });
+
+
 
 http.createServer(router.handle).listen(port);
 console.log(`Use http://localhost:3000 to view website. The server is listening on port number: ${port}`);
