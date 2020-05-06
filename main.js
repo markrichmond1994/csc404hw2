@@ -4,8 +4,8 @@
 
 "use strict";
 
-const GradeInput = require("./GradeInput");
-const QualifiedStudents = require("./QualifiedStudents");
+const GradeInput = require("./Students/GradeInput");
+const QualifiedStudents = require("./Students/QualifiedStudents");
 
 GradeInput.getGrades();
 

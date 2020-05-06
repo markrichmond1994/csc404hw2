@@ -12,7 +12,7 @@ exports.outputGPA = function(){
   console.log(threshold);
 };
 
-const GradeInput = require("./GradeInput");
+const GradeInput = require("./Grades");
 
 for (var i = 0; i < GradeInput.students.length; i++)
 {

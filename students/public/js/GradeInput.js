@@ -10,6 +10,7 @@ var csc240 = {Value: 0};
 var csc241 = {Value: 0};
 
 exports.students = students;
+
 getGrades = function(){
 
    var schema = {
@@ -46,6 +47,26 @@ getGrades = function(){
       }
     }
   }
+
+  const MongoDB = require("mongodb").MongoClient,
+  dbURL = "mongodb://localhost:27017",
+  dbName = "recipe_db";
+
+MongoDB.connect(dbURL, (error, client) => {
+  if (error) throw error;
+  let db = client.db(dbName);
+  db.collection("GPA")
+    .find()
+    .toArray((error, data) => {
+      if (error) throw error;
+      console.log(data);
+    });
+});
+
+
+
+
+
   var flag = true;
   var prompt = require('prompt');
   prompt.start();
@@ -57,7 +78,7 @@ getGrades = function(){
    processPrompt(result.csc241,csc241);
     gpa = ((csc141.Value + csc142.Value + csc240.Value + csc241.Value)/4);
     name = result.name;
-    addToArray(name,gpa);
+    addToDatabase(name,gpa);
     if (result.addmore.toUpperCase() == "Y"){
       flag = true;
       getGrades();
@@ -130,8 +151,17 @@ exports.outputName = function(){
   return name;
 }
 
-addToArray = function(name, gpa){
-students.push([name,gpa]);
+addToDatabase = function(name, gpa){
+   db.collection("GPA")
+   .insert({
+     name: name,
+     gpa: gpa
+   }, (error, db) => {
+     if (error) throw error;
+     console.log(db);
+   });
+ 
+ 
 }
 exports.addToArray = addToArray; //export statement for debug
 

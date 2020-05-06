@@ -1,5 +1,10 @@
 "use strict";
 
+//This is the Testing Branch
+var assert = require("assert");
+
+
+
 //instructions. Type following into visual studio code terminal... (make sure you have node.js installed https://nodejs.org/en/download/)
 //cd students
 //npm init --yes
@@ -22,17 +27,21 @@ router.get("/", (req, res) => {
 router.get("/courses.html", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.html);
   utils.getFile("views/courses.html", res);
+  
 });
 
-router.get("/contact.html", (req, res) => {
+router.get("/gradeInput.html", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.html);
-  utils.getFile("views/contact.html", res);
+  utils.getFile("views/gradeInput.html", res);
 });
 
 router.post("/", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.html);
   utils.getFile("views/thanks.html", res);
+  console.log(res);
+  var gradeInput = require("/GradeInput.js");
 });
+
 
 router.get("/graph.png", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.png);
@@ -73,6 +82,8 @@ router.get("/confetti_cuisine.js", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.js);
   utils.getFile("public/js/QualifiedStudents.js", res);
 });
+
+
 
 http.createServer(router.handle).listen(port);
 console.log(`Use http://localhost:3000 to view website. The server is listening on port number: ${port}`);
