@@ -1,6 +1,5 @@
 //This will take the grades using a prompt, cacluate the GPA, and add that data to an array
-
-
+//npm install mongodb
 var gpa;
 var name;
 let students = [];
@@ -9,6 +8,15 @@ var csc141 = {Value: 0};
 var csc142 = {Value: 0};
 var csc240 = {Value: 0};
 var csc241 = {Value: 0};
+
+
+
+MongoDB = require('mongodb').MongoClient,
+dbURL = 'mongodb://localhost:27017/',
+dbName = 'Students';
+
+
+
 
 exports.students = students;
 getGrades = function(){
