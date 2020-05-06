@@ -4,18 +4,20 @@
   dbURL = "mongodb://localhost:27017",
   dbName = "recipe_db";
 
-MongoDB.connect(dbURL, (error, client) => {
-  if (error) throw error;
-  let db = client.db(dbName);
-  db.collection("Students")
-    .find()
-    .toArray((error, data) => {
-      if (error) throw error;
-      console.log(data);
-    });
-});
+
 
    uploadData = function(data){
+      
+      MongoDB.connect(dbURL, (error, client) => {
+         if (error) throw error;
+         let db = client.db(dbName);
+         db.collection("Students")
+           .find()
+           .toArray((error, data) => {
+             if (error) throw error;
+             console.log(data);
+           });
+
       db.Students.insert({
          name: data.name,
          csc141: data.csc141,
@@ -24,6 +26,7 @@ MongoDB.connect(dbURL, (error, client) => {
          csc242: data.csc242,
          gpa: ((ProcessGrade(data.csc141) + ProcessGrade(data.csc142) + ProcessGrade(data.csc241) + ProcessGrade(data.csc242)) /4)
        })
+      });
    }
    exports.uploadData = uploadData;
 
