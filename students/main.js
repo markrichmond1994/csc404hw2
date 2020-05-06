@@ -8,6 +8,7 @@
 //npm install --save node-html-parser
 //use http://localhost:3000 to view website in your web browser
 
+const GradeInput = require("./GradeInput");
 
 const getJSONString = obj => {
   return JSON.stringify(obj, null, 2);
@@ -45,6 +46,7 @@ router.post("/gradeInput.html", (req, res) => {
   req.on("end", () => {
     body = Buffer.concat(body).toString();
     console.log(`${body}`)
+    GradeInput.uploadData(body);
   })
   
   
