@@ -1,8 +1,6 @@
 "use strict";
 
-//This is the Testing Branch
 var assert = require("assert");
-
 
 
 //instructions. Type following into visual studio code terminal... (make sure you have node.js installed https://nodejs.org/en/download/)
@@ -10,6 +8,7 @@ var assert = require("assert");
 //npm init --yes
 //npm install -S
 //node main.js
+//npm install --save node-html-parser
 //use http://localhost:3000 to view website in your web browser
 
 const port = 3000,
@@ -35,12 +34,12 @@ router.get("/gradeInput.html", (req, res) => {
   utils.getFile("views/gradeInput.html", res);
 });
 
-router.post("/", (req, res) => {
+router.post("/gradeInput.html", (req, res) => {
+  console.log("asdffsda");    
   res.writeHead(httpStatus.OK, contentTypes.html);
   utils.getFile("views/thanks.html", res);
-  console.log(res);
-  var gradeInput = require("/GradeInput.js");
 });
+
 
 
 router.get("/graph.png", (req, res) => {
