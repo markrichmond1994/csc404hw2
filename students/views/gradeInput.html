@@ -30,8 +30,10 @@
           <p></p><input type="lettergrade" pattern="^[a-eA-E]{1}[+|-]?$" name="csc142" id="2" class="form-control grade" placeholder="CSC142 grade"required />
           <p></p><input type="lettergrade" pattern="^[a-eA-E]{1}[+|-]?$" name="csc241" id="3" class="form-control grade" placeholder="CSC241 grade"required />
           <p></p><input type="lettergrade" pattern="^[a-eA-E]{1}[+|-]?$" name="csc242" id="4" class="form-control grade" placeholder="CSC242 grade"required />
-          <p></p><script src="../gradeInput.js"></script>
+          <p></p><span id="finalGPA"></span><br/>
+          <p></p><script type="text/javascript" src="../js/GradeInput.js"></script> 
           <input class="button" type="submit" id="clickMe" value="submit" onclick="calcGPA();" />
+          <script>document.getElementById("clickMe").onclick = calcGPA;</script>
         </form>
         <p>After you submit the student grade, submit the student grade for the next class please.</p>
       </div>
