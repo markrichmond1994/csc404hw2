@@ -1,5 +1,60 @@
 //This will take the grades using a prompt, cacluate the GPA, and add that data to an array
 
+var inputs = document.querySelectorAll('.grade');
+var final = document.querySelector('#finalGPA');
+var button = document.getElementById("clickMe").onclick = calcGPA();
+button.addEventListener('click', checkGrades, false);
+
+//add grade input to array
+var x = 0;
+var y = 0;
+var csc141 = document.getElementById('1').value;
+var csc142 = document.getElementById('2').value;
+var csc241 = document.getElementById('3').value;
+var csc242 = document.getElementById('4').value;
+var gpa = 0;
+var grades = Array();
+var names = Array();
+
+const gradeMap = {
+   'A': 4.0,
+   'A-': 3.67,
+   'B+': 3.33,
+   'B': 3.0,
+   'B-': 2.67,
+   'C+': 2.33,
+   'C': 2.0,
+   'C-': 1.67,
+   'D+': 1.33,
+   'D': 1.0,
+   'D-': 0.67,
+   'F': 0,
+}
+
+function calcGPA() {
+   var grade1 = gradeMap[csc141];
+   var grade2 = gradeMap[csc142];
+   var grade3 = gradeMap[csc241];
+   var grade4 = gradeMap[csc242];
+   gpa = (grade1 + grade2 + grade3 + grade4)/4
+   if (gpa > 2.5) {
+      grades[x] = gpa;
+      names[y] = document.getElementById("fullName").value;
+      x++;
+      y++;
+   }
+ }
+
+function displayQualStudents() {
+  var out = "";
+  var i = 0;
+  for (i = 0; i < grades.length; i++) {
+    out + names[i] + ": " + grades[i] + ", ";
+  }
+  return out;
+}
+
+ //MongoDB code below
   const MongoDB = require("mongodb").MongoClient,
   dbURL = "mongodb://localhost:27017",
   dbName = "recipe_db";
@@ -15,83 +70,17 @@ MongoDB.connect(dbURL, (error, client) => {
     });
 });
 
-   const QualifiedStudents = require('./QualifiedStudents');
    uploadData = function(data){
-      data = data.split('\r');
-      for (i = 0; i < data.length; i ++){
-         data[i] = data[i].substring(data[i].indexOf("=") + 1)
-      }
-      data[data.length -1 ] = ((ProcessGrade(data[1]) + ProcessGrade(data[2]) + ProcessGrade(data[3]) + ProcessGrade(data[4])) /4);
-      QualifiedStudents.studentData.push(data);
-      console.log('test');
       db.Students.insert({
-         name: data[0],
-         csc141: data[1],
-         csc142: data[2],
-         csc241: data[3],
-         csc242: data[4],
-         gpa: ((ProcessGrade(data[1]) + ProcessGrade(data[2]) + ProcessGrade(data[3]) + ProcessGrade(data[4])) /4)
+         name: data.name,
+         csc141: data.csc141,
+         csc142: data.csc142,
+         csc241: data.csc241,
+         csc242: data.csc242,
+         gpa: ((ProcessGrade(data.csc141) + ProcessGrade(data.csc142) + ProcessGrade(data.csc241) + ProcessGrade(data.csc242)) /4)
        })
    }
    exports.uploadData = uploadData;
-   
-   
-
-ProcessGrade = function(input){ //Takes the inputted letter grade and resolves to a number
-   switch (input.toUpperCase()) {
-      case 'A+':
-         return 4;
-         break;
-      case 'A':
-         return 4;
-         break;
-      case 'A-':
-         return  3.67;
-         break;
-      case 'B+':
-         return  3.33;
-         break;
-      case 'B':
-         return  3;
-         break;
-      case 'B-':
-         return  2.67;
-         break;
-      case 'C+':
-         return 2.33;
-         break;
-      case 'C':
-         return  2;
-         break;
-      case 'C-':
-         return 1.67;
-         break;
-      case 'D+':
-         return  1.33;
-         break;
-      case 'D':
-          return  1;
-         break;
-      case 'D-':
-         return  .67;
-         break;
-      case 'F':
-         return  0;
-         break;
-      default:
-         return  0;
-   }
-   
-}
-
-exports.outputGPA = function(){
-  return gpa;
-}
-
-exports.outputName = function(){
-  return name;
-}
-
 
 addToDatabase = function(name, gpa){
    db.collection("GPA")
@@ -104,8 +93,4 @@ addToDatabase = function(name, gpa){
    });
  
  
-}
-
-exports.printArray = function(){
-  console.log(students);
 }

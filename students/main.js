@@ -8,10 +8,6 @@
 //npm install --save node-html-parser
 //use http://localhost:3000 to view website in your web browser
 
-const GradeInput = require("./GradeInput");
-const QualifiedStudents = require("./QualifiedStudents");
-var fs = require('fs');
-
 const getJSONString = obj => {
   return JSON.stringify(obj, null, 2);
 };
@@ -31,8 +27,7 @@ router.get("/", (req, res) => {
 router.get("/courses.html", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.html);
   utils.getFile("views/courses.html", res);
-  //res.write("test");
-  res.write(QualifiedStudents.returnQualified());
+  
 });
 
 router.get("/gradeInput.html", (req, res) => {
@@ -48,16 +43,12 @@ router.post("/gradeInput.html", (req, res) => {
   }));
   req.on("end", () => {
     body = Buffer.concat(body).toString();
-    //console.log(`${body}`)
-    GradeInput.uploadData(body);
+    console.log(`${body}`)
   })
-  
   
   res.writeHead(httpStatus.OK, contentTypes.html);
   utils.getFile("views/thanks.html", res);
 });
-
-
 
 router.get("/graph.png", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.png);
@@ -99,11 +90,5 @@ router.get("/confetti_cuisine.js", (req, res) => {
   utils.getFile("public/js/QualifiedStudents.js", res);
 });
 
-
-
 http.createServer(router.handle).listen(port);
 console.log(`Use http://localhost:3000 to view website. The server is listening on port number: ${port}`);
-
-process.on('uncaughtException', function (err) {
-  console.log(err);
-}); 
