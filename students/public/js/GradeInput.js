@@ -1,53 +1,70 @@
 //This will take the grades using a prompt, cacluate the GPA, and add that data to an array
+//const submit = document.querySelector('clickMe').onclick = calcGPA();
+//submit.addEventListener('clickMe', calcGPA, false);
 
-var gpa;
-var name;
-let students = [];
+const inputs = document.querySelectorAll('.grade');
+const final = document.querySelector('#finalGPA');
+const button = document.querySelector('input[type="submit"]');
+button.addEventListener('click', checkGrades, false);
 
-var csc141 = {Value: 0};
-var csc142 = {Value: 0};
-var csc240 = {Value: 0};
-var csc241 = {Value: 0};
+//add grade input to array
+var x = 0;
+var y = 0;
+var csc141 = document.getElementById('1').value;
+var csc142 = document.getElementById('2').value;
+var csc241 = document.getElementById('3').value;
+var csc242 = document.getElementById('4').value;
+var gpa = 0;
+var grades = Array();
+var names = Array();
+names.push("Mark Richmond");
+grades.push(4);
 
-exports.students = students;
+const gradeMap = {
+   'A': 4.0,
+   'A-': 3.67,
+   'B+': 3.33,
+   'B': 3.0,
+   'B-': 2.67,
+   'C+': 2.33,
+   'C': 2.0,
+   'C-': 1.67,
+   'D+': 1.33,
+   'D': 1.0,
+   'D-': 0.67,
+   'F': 0,
+}
 
-getGrades = function(){
+function calcGPA() {
+   var grade1 = gradeMap[csc141.toUpperCase()];
+   var grade2 = gradeMap[csc142.toUpperCase()];
+   var grade3 = gradeMap[csc241.toUpperCase()];
+   var grade4 = gradeMap[csc242.toUpperCase()];
+   gpa = (grade1 + grade2 + grade3 + grade4)/4
+   if (gpa > 2.5) {
+      grades[x] = gpa;
+      names[y] = document.getElementById('fullName').value;
+      x++;
+      y++;
+   }
+ }
+ 
+function checkGrades() {
+  final.textContent = [...inputs].reduce((total, grade) => {
+    return total += gradeMap[grade.value.toUpperCase()];
+  }, 0);
+}
 
-   var schema = {
-    properties: {
-      name: {
-        pattern: /^[a-zA-Z\s\-]+$/,
-        message: 'Name must be only letters, space, or dashes',
-        required: true
-      },
-      csc141: {
-        pattern: /[A-F][\+|\-]?|[a-f][\+|\-]?/, //Idk if we want to open this can or worms or not
-        message: 'Grade should be a letter grade',
-        required: true
-      },
-      csc142: {
-        pattern: /[A-F][\+|\-]?|[a-f][\+|\-]?/,
-        message: 'Grade should be a letter grade',
-        required: true
-      },
-      csc240: {
-        pattern: /[A-F][\+|\-]?|[a-f][\+|\-]?/,
-        message: 'Grade should be a letter grade',
-        required: true
-      },
-      csc241: {
-        pattern: /[A-F][\+|\-]?|[a-f][\+|\-]?/,
-        message: 'Grade should be a letter grade',
-        required: true
-      },
-      addmore:{
-         pttern: /[y|z]|[Y|Z]/,
-        message: 'Enter more Students? (y/n)',
-        required: true
-      }
-    }
+function displayQualStudents() {
+  var out = "";
+  var i = 0;
+  for (i = 0; i < grades.length; i++) {
+    out + names[i] + ": " + grades[i] + ", ";
   }
+  return out;
+}
 
+ //MongoDB code below
   const MongoDB = require("mongodb").MongoClient,
   dbURL = "mongodb://localhost:27017",
   dbName = "recipe_db";
@@ -55,7 +72,7 @@ getGrades = function(){
 MongoDB.connect(dbURL, (error, client) => {
   if (error) throw error;
   let db = client.db(dbName);
-  db.collection("GPA")
+  db.collection("Students")
     .find()
     .toArray((error, data) => {
       if (error) throw error;
@@ -63,93 +80,17 @@ MongoDB.connect(dbURL, (error, client) => {
     });
 });
 
-
-
-
-
-  var flag = true;
-  var prompt = require('prompt');
-  prompt.start();
-
-  prompt.get(schema, function (err, result){
-   processPrompt(result.csc141,csc141);
-   processPrompt(result.csc142,csc142);
-   processPrompt(result.csc240,csc240);
-   processPrompt(result.csc241,csc241);
-    gpa = ((csc141.Value + csc142.Value + csc240.Value + csc241.Value)/4);
-    name = result.name;
-    addToDatabase(name,gpa);
-    if (result.addmore.toUpperCase() == "Y"){
-      flag = true;
-      getGrades();
+   uploadData = function(data){
+      db.Students.insert({
+         name: data.name,
+         csc141: data.csc141,
+         csc142: data.csc142,
+         csc241: data.csc241,
+         csc242: data.csc242,
+         gpa: ((ProcessGrade(data.csc141) + ProcessGrade(data.csc142) + ProcessGrade(data.csc241) + ProcessGrade(data.csc242)) /4)
+       })
    }
-   else{
-      flag = false;
-      var QualifiedStudents = require('./QualifiedStudents'); 
-      QualifiedStudents.outputGPA();
-   }
-    
-    
-  })
-    
-   }
-  exports.getGrades = getGrades;
-
-processPrompt = function(input,output){ //Takes the inputted letter grade and resolves to a number
-   switch (input.toUpperCase()) {
-      case 'A+':
-         output.Value = 4;
-         break;
-      case 'A':
-         output.Value = 4;
-         break;
-      case 'A-':
-         output.Value = 3.67;
-         break;
-      case 'B+':
-         output.Value = 3.33;
-         break;
-      case 'B':
-         output.Value = 3;
-         break;
-      case 'B-':
-         output.Value = 2.67;
-         break;
-      case 'C+':
-         output.Value = 2.33;
-         break;
-      case 'C':
-         output.Value = 2;
-         break;
-      case 'C-':
-         output.Value = 1.67;
-         break;
-      case 'D+':
-         output.Value = 1.33;
-         break;
-      case 'D':
-         output.Value = 1;
-         break;
-      case 'D-':
-         output.Value = .67;
-         break;
-      case 'F':
-         output.Value = 0;
-         break;
-      default:
-         output.Value = 0;
-   }
-   
-}
-exports.processPrompt = processPrompt;
-
-exports.outputGPA = function(){
-  return gpa;
-}
-
-exports.outputName = function(){
-  return name;
-}
+   exports.uploadData = uploadData;
 
 addToDatabase = function(name, gpa){
    db.collection("GPA")
@@ -162,9 +103,4 @@ addToDatabase = function(name, gpa){
    });
  
  
-}
-exports.addToArray = addToArray; //export statement for debug
-
-exports.printArray = function(){
-  console.log(students);
 }
