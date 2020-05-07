@@ -1,7 +1,4 @@
 //This will take the grades using a prompt, cacluate the GPA, and add that data to an array
-
-var inputs = document.querySelectorAll('.grade');
-var final = document.querySelector('#finalGPA');
 var button = document.getElementById("clickMe").onclick = calcGPA();
 button.addEventListener('click', checkGrades, false);
 
