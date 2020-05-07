@@ -1,11 +1,6 @@
 //This will take the grades using a prompt, cacluate the GPA, and add that data to an array
-//const submit = document.querySelector('clickMe').onclick = calcGPA();
-//submit.addEventListener('clickMe', calcGPA, false);
-
-const inputs = document.querySelectorAll('.grade');
-const final = document.querySelector('#finalGPA');
-const button = document.querySelector('input[type="submit"]');
-button.addEventListener('click', checkGrades, false);
+const submit = document.querySelector('clickMe').onclick = calcGPA();
+submit.addEventListener('clickMe', calcGPA, false);
 
 //add grade input to array
 var x = 0;
@@ -17,8 +12,6 @@ var csc242 = document.getElementById('4').value;
 var gpa = 0;
 var grades = Array();
 var names = Array();
-names.push("Mark Richmond");
-grades.push(4);
 
 const gradeMap = {
    'A': 4.0,
@@ -49,12 +42,6 @@ function calcGPA() {
    }
  }
  
-function checkGrades() {
-  final.textContent = [...inputs].reduce((total, grade) => {
-    return total += gradeMap[grade.value.toUpperCase()];
-  }, 0);
-}
-
 function displayQualStudents() {
   var out = "";
   var i = 0;
