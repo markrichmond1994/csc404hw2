@@ -36,7 +36,7 @@ function calcGPA() {
    gpa = (grade1 + grade2 + grade3 + grade4)/4
    if (gpa > 2.5) {
       grades[x] = gpa;
-      names[y] = document.getElementById("fullName").value;
+      names[y] = document.getElementById('fullName').value;
       x++;
       y++;
    }
