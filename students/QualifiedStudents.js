@@ -26,7 +26,7 @@ function returnQualified(){
     if(studentData[i][5] >= threshold){
       //console.log(studentData[i]);
       //console.log(studentData[i][5]);
-      qualifiedStudents.push(studentData[i][0]);
+      qualifiedStudents.push(studentData[i][0] + ":" +studentData[i][5]);
       //console.log(qualifiedStudents.toString());
       //console.log("yes");
       //return studentData[i][0].toString(); //this is the only way I can get anything to display on the page.
