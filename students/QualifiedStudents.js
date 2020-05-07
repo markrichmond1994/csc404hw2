@@ -2,6 +2,8 @@
 
 
 "use strict";
+let studentData = [];
+exports.studentData = studentData;
 
 var threshold = 2.5; //This is a static variable per Dr. Yang's email
 exports.getThreshold = function(){
@@ -10,6 +12,12 @@ exports.getThreshold = function(){
 
 
 const GradeInput = require("./GradeInput");
+
+function returnQualified(){
+  return studentData.toString();
+}
+exports.returnQualified = returnQualified;
+
 
 exports.outputGPA = function(){
 for (var i = 0; i < GradeInput.students.length; i++)

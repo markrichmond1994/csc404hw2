@@ -9,6 +9,8 @@
 //use http://localhost:3000 to view website in your web browser
 
 const GradeInput = require("./GradeInput");
+const QualifiedStudents = require("./QualifiedStudents");
+var fs = require('fs');
 
 const getJSONString = obj => {
   return JSON.stringify(obj, null, 2);
@@ -29,7 +31,8 @@ router.get("/", (req, res) => {
 router.get("/courses.html", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.html);
   utils.getFile("views/courses.html", res);
-  
+  res.write(QualifiedStudents.returnQualified());
+  //res.write("test");
 });
 
 router.get("/gradeInput.html", (req, res) => {
