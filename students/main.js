@@ -31,8 +31,8 @@ router.get("/", (req, res) => {
 router.get("/courses.html", (req, res) => {
   res.writeHead(httpStatus.OK, contentTypes.html);
   utils.getFile("views/courses.html", res);
-  res.write(QualifiedStudents.returnQualified());
   //res.write("test");
+  res.write(QualifiedStudents.returnQualified());
 });
 
 router.get("/gradeInput.html", (req, res) => {
@@ -48,7 +48,7 @@ router.post("/gradeInput.html", (req, res) => {
   }));
   req.on("end", () => {
     body = Buffer.concat(body).toString();
-    console.log(`${body}`)
+    //console.log(`${body}`)
     GradeInput.uploadData(body);
   })
   

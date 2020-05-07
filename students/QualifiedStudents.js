@@ -3,6 +3,7 @@
 
 "use strict";
 let studentData = [];
+
 exports.studentData = studentData;
 
 var threshold = 2.5; //This is a static variable per Dr. Yang's email
@@ -13,8 +14,27 @@ exports.getThreshold = function(){
 
 const GradeInput = require("./GradeInput");
 
+/*function returnQualified(){  
+  console.log(qualifiedStudents.toString());
+  return qualifiedStudents.toString();
+}
+*/
+
 function returnQualified(){
-  return studentData.toString();
+  let qualifiedStudents = [];
+  for (i = 0; i < studentData.length; i++){
+    if(studentData[i][5] >= threshold){
+      //console.log(studentData[i]);
+      //console.log(studentData[i][5]);
+      qualifiedStudents.push(studentData[i][0]);
+      //console.log(qualifiedStudents.toString());
+      //console.log("yes");
+      //return studentData[i][0].toString(); //this is the only way I can get anything to display on the page.
+    }
+  } //nothing after here runs and I don't know why
+  console.log("test");
+  console.log(qualifiedStudents.toString());
+  return qualifiedStudents.toString();
 }
 exports.returnQualified = returnQualified;
 

@@ -24,16 +24,16 @@
         <p>Enter the students grades for each class.</p>
         <p></p>
         
-        <form action="/gradeInput.html" method="POST">
-          <p></p><input type="name" name="name" placeholder="Full name" required />
+        <form enctype='text/plain' action="/gradeInput.html" method="POST" >
+          <input type='string' name="name" placeholder="Full name" required />
           
-          <p></p><input type="lettergrade" name="csc141" placeholder="CSC141 grade" required />
+          <p></p><input type='string' name="csc141" placeholder="CSC141 grade" required />
           
-          <p></p><input type="lettergrade" name="csc142" placeholder="CSC142 grade"required />
+          <p></p><input type='string' name="csc142" placeholder="CSC142 grade"required />
           
-          <p></p><input type="lettergrade" name="csc241" placeholder="CSC241 grade"required />
+          <p></p><input type='string' name="csc241" placeholder="CSC241 grade"required />
 
-          <p></p><input type="lettergrade" name="csc242" placeholder="CSC242 grade"required />
+          <p></p><input type='string' name="csc242" placeholder="CSC242 grade"required />
 
           <p></p><input class="button" type="submit" value="submit" />
         </form>

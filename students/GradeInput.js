@@ -15,18 +15,27 @@ MongoDB.connect(dbURL, (error, client) => {
     });
 });
 
+   const QualifiedStudents = require('./QualifiedStudents');
    uploadData = function(data){
+      data = data.split('\r');
+      for (i = 0; i < data.length; i ++){
+         data[i] = data[i].substring(data[i].indexOf("=") + 1)
+      }
+      data[data.length -1 ] = ((ProcessGrade(data[1]) + ProcessGrade(data[2]) + ProcessGrade(data[3]) + ProcessGrade(data[4])) /4);
+      QualifiedStudents.studentData.push(data);
+      console.log('test');
       db.Students.insert({
-         name: data.name,
-         csc141: data.csc141,
-         csc142: data.csc142,
-         csc241: data.csc241,
-         csc242: data.csc242,
-         gpa: ((ProcessGrade(data.csc141) + ProcessGrade(data.csc142) + ProcessGrade(data.csc241) + ProcessGrade(data.csc242)) /4)
+         name: data[0],
+         csc141: data[1],
+         csc142: data[2],
+         csc241: data[3],
+         csc242: data[4],
+         gpa: ((ProcessGrade(data[1]) + ProcessGrade(data[2]) + ProcessGrade(data[3]) + ProcessGrade(data[4])) /4)
        })
    }
    exports.uploadData = uploadData;
-
+   
+   
 
 ProcessGrade = function(input){ //Takes the inputted letter grade and resolves to a number
    switch (input.toUpperCase()) {
