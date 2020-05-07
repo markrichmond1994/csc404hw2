@@ -24,18 +24,14 @@
         <p>Enter the students grades for each class.</p>
         <p></p>
         
-        <form enctype='text/plain' action="/gradeInput.html" method="POST" >
-          <input type='string' name="name" placeholder="Full name" required />
-          
-          <p></p><input type='string' name="csc141" placeholder="CSC141 grade" required />
-          
-          <p></p><input type='string' name="csc142" placeholder="CSC142 grade"required />
-          
-          <p></p><input type='string' name="csc241" placeholder="CSC241 grade"required />
-
-          <p></p><input type='string' name="csc242" placeholder="CSC242 grade"required />
-
-          <p></p><input class="button" type="submit" value="submit" />
+        <form action="/gradeInput.html" method="POST">
+          <p></p><input type="name" name="name" id="fullName" placeholder="Full name" required />
+          <p></p><input type="lettergrade" pattern="^[a-eA-E]{1}[+|-]?$" name="csc141" id="1" class="form-control grade" placeholder="CSC141 grade"required />
+          <p></p><input type="lettergrade" pattern="^[a-eA-E]{1}[+|-]?$" name="csc142" id="2" class="form-control grade" placeholder="CSC142 grade"required />
+          <p></p><input type="lettergrade" pattern="^[a-eA-E]{1}[+|-]?$" name="csc241" id="3" class="form-control grade" placeholder="CSC241 grade"required />
+          <p></p><input type="lettergrade" pattern="^[a-eA-E]{1}[+|-]?$" name="csc242" id="4" class="form-control grade" placeholder="CSC242 grade"required />
+          <p></p><script src="../gradeInput.js"></script>
+          <input class="button" type="submit" id="clickMe" value="submit" onclick="calcGPA();" />
         </form>
         <p>After you submit the student grade, submit the student grade for the next class please.</p>
       </div>
