@@ -100,3 +100,7 @@ router.get("/confetti_cuisine.js", (req, res) => {
 
 http.createServer(router.handle).listen(port);
 console.log(`Use http://localhost:3000 to view website. The server is listening on port number: ${port}`);
+
+process.on('uncaughtException', function (err) {
+  console.log(err);
+}); 
